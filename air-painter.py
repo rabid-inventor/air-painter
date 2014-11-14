@@ -1,13 +1,23 @@
 
 import pygame
 import time
+import skywriter
 
+x = 0
+y = 0
+z = 0 
 
-x = 1
-y = 50
-z = 50
+@skywriter.move()
+def move(xa,ya,za):
+      #print(x,y,z)
+  global x,y,z
+  x = xa * 255
+  y = ya  * 255
+  z = za  * 255
+ 
+
 pygame.init()
-screen = pygame.display.set_mode((600, 600))
+screen = pygame.display.set_mode((400, 400))
 pygame.display.set_caption('Basic Pygame program')
 # Fill background
 background = pygame.Surface(screen.get_size())
@@ -26,27 +36,22 @@ def main():
   # Initialise screen
 
 
-  # Display some text
-  font = pygame.font.Font(None, 36)
-  text = font.render("Hello There", 1, (10, 10, 10))
-  textpos = text.get_rect()
-  textpos.centerx = background.get_rect().centerx
-  background.blit(text, textpos)
+ 
 
   # Blit everything to the screen
   screen.blit(background, (0, 0))
   pygame.display.flip()
-  xz = 0
 
   # Event loop
   while 1:
-    xz = xz +1
-    sometext((x,y,z))
-    background.fill((xz,y,z))
+    ev = pygame.event.poll()    # Look for any event
+    if ev.type == pygame.QUIT:  # Window close button clicked?
+      break                   #   ... leave game loop
+    background.fill((x,y,z))
     screen.blit(background, (0, 0))
     pygame.display.flip()
     pygame.display.update()
-    time.sleep(0.5)
+    time.sleep(0.02)
 
 
 if __name__ == '__main__': main()
